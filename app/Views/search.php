@@ -7,6 +7,8 @@
     <title>Sistem Temu Kembali Informasi</title>
     <link rel="shortcut icon" type="image/png" href="<?= base_url("assets/images/logos/favicon.png") ?>" />
     <link rel="stylesheet" href="<?= base_url("assets/css/styles.min.css") ?>" />
+    <link rel="stylesheet" href="<?= base_url("assets/css/table.css") ?>" />
+
 </head>
 
 <body>
@@ -67,15 +69,83 @@
             </header>
             <!--  Header End -->
             <div class="container-fluid">
-                <!--  Row 1 -->
                 <div class="row">
-                    <!-- echo "Panjang List: " . $searchText["panjang list"]; -->
-                    <?php $i = 0;
-                    while ($i <= $searchText["panjang list"]) { ?>
-                        <p>Judul: <?php $searchText["hasil"][$i][1] ?></p>
-                        <?php $i++;
-                    } ?>
+                    <div class="col">
+                        <div class="card w-100">
+                            <div class="card-body p-4">
+                                <h5 class="card-title fw-semibold mb-4">Hasil Pencarian</h5>
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap mb-0 align-middle">
+                                        <thead class="text-dark fs-4">
+                                            <tr>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Judul</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Fakultas</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Topik</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Similarity</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Url</h6>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            // Cek apakah panjang list lebih dari 0
+                                            if ($searchText["panjang list"] > 0) {
+                                                // Loop melalui hasil pencarian
+                                                for ($i = 0; $i < $searchText["panjang list"]; $i++) {
+                                                    $judul = $searchText["hasil"][$i][1];
+                                                    $fakultas = $searchText["hasil"][$i][0];
+                                                    $topikArray = $searchText["hasil"][$i][11];
+                                                    $similarity = $searchText["hasil"][$i][10];
+                                                    $url = $searchText["hasil"][$i][8];
+                                            ?>
+                                                    <tr>
+                                                        <td class="border-bottom-0"><?php echo $judul; ?></td>
+                                                        <td class="border-bottom-0"><?php echo $fakultas; ?></td>
+                                                        <td class="border-bottom-0">
+                                                            <?php
+                                                            // Menampilkan semua elemen array pada indeks 11
+                                                            foreach ($topikArray as $topikElemen) {
+                                                                echo $topikElemen . ' ';
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td class="border-bottom-0"><?php echo $similarity; ?></td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-primary" onclick="window.location.href='<?php echo $url; ?>'">
+                                                                Buka
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <tr>
+                                                    <td colspan="5">Tidak ada hasil pencarian.</td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
+
+
             </div>
 
             <script src="<?= base_url("assets/libs/jquery/dist/jquery.min.js") ?>"></script>
