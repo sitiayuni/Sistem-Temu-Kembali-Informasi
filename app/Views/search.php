@@ -20,7 +20,7 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="<?= base_url("publikasi") ?>" class="text-nowrap logo-img">
-                        <img src="<?= base_url("assets/images/logos/dark-logo.svg") ?>" width="180" alt="" />
+                        <img src="<?= base_url("assets/images/logos/STKI.png") ?>" width="180" alt="" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-8"></i>
@@ -73,79 +73,56 @@
                     <div class="col">
                         <div class="card w-100">
                             <div class="card-body p-4">
-                                <h5 class="card-title fw-semibold mb-4">Hasil Pencarian</h5>
-                                <div class="table-responsive">
-                                    <table class="table text-nowrap mb-0 align-middle">
-                                        <thead class="text-dark fs-4">
-                                            <tr>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Judul</h6>
-                                                </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Fakultas</h6>
-                                                </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Topik</h6>
-                                                </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Similarity</h6>
-                                                </th>
-                                                <th class="border-bottom-0">
-                                                    <h6 class="fw-semibold mb-0">Url</h6>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            // Cek apakah panjang list lebih dari 0
-                                            if ($searchText["panjang list"] > 0) {
-                                                // Loop melalui hasil pencarian
-                                                for ($i = 0; $i < $searchText["panjang list"]; $i++) {
-                                                    $judul = $searchText["hasil"][$i][1];
-                                                    $fakultas = $searchText["hasil"][$i][0];
-                                                    $topikArray = $searchText["hasil"][$i][11];
-                                                    $similarity = $searchText["hasil"][$i][10];
-                                                    $url = $searchText["hasil"][$i][8];
-                                            ?>
-                                                    <tr>
-                                                        <td class="border-bottom-0"><?php echo $judul; ?></td>
-                                                        <td class="border-bottom-0"><?php echo $fakultas; ?></td>
-                                                        <td class="border-bottom-0">
-                                                            <?php
-                                                            // Menampilkan semua elemen array pada indeks 11
-                                                            foreach ($topikArray as $topikElemen) {
-                                                                echo $topikElemen . ' ';
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td class="border-bottom-0"><?php echo $similarity; ?></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-primary" onclick="window.location.href='<?php echo $url; ?>'">
-                                                                Buka
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                <?php
-                                                }
-                                            } else {
-                                                ?>
+                            <a href="<?= base_url('publikasi'); ?>" class="btn btn-primary float-right">Kembali</a>
+                                <h5 class="card-title fw-semibold mb-4 text-center">Hasil Pencarian</h5>
+                                <p class='m-3'>Berikut adalah hasil penelusuran :</p><br>
+                                <?php
+                                // Cek apakah panjang list lebih dari 0
+                                if ($searchText["panjang list"] > 0) {
+                                    // Loop melalui hasil pencarian
+                                    for ($i = 0; $i < $searchText["panjang list"]; $i++) {
+                                        $judul = $searchText["hasil"][$i][1];
+                                        $fakultas = $searchText["hasil"][$i][0];
+                                        $topikArray = $searchText["hasil"][$i][11];
+                                        $similarity = $searchText["hasil"][$i][10];
+                                        $url = $searchText["hasil"][$i][8]; ?>
+
+                                        <table class="table">
+                                            <tbody>
                                                 <tr>
-                                                    <td colspan="5">Tidak ada hasil pencarian.</td>
+                                                    <td rowspan=5 class="col-sm-1"><?php echo $i + 1 ?></td>
+                                                    <th scope="row" class="col-md-2">Judul</th>
+                                                    <td class="col-md-4"><?php echo $judul ?></td>
                                                 </tr>
-                                            <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                <tr>
+                                                    <th scope="row" class="col-md-2">Division</th>
+                                                    <td class="col-md-4"><?php echo $fakultas ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="col-md-2">Topik</th>
+                                                    <td class="col-md-4"><?php
+                                                                            foreach ($topikArray as $topikElemen) {
+                                                                                echo $topikElemen . ', ';
+                                                                            }
+                                                                            ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="col-md-2">Similaritas</th>
+                                                    <td class="col-md-4"><?php echo $similarity ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="col-md-2">URL</th>
+                                                    <td class="col-md-4"><a href="<?php echo $url ?>"><?php echo $url ?></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table><br>
+                                <?php }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
 
             <script src="<?= base_url("assets/libs/jquery/dist/jquery.min.js") ?>"></script>

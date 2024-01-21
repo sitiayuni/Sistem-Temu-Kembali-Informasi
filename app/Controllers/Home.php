@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-
+ini_set('max_execution_time', 0);
 class Home extends BaseController
 {
     public function publikasi(): string
@@ -38,7 +38,6 @@ class Home extends BaseController
             ];
         
             $context = stream_context_create($options);
-            // $result = file_get_contents('http://127.0.0.1:8000/kompetensi', false, $context);
             $result = file_get_contents('http://127.0.0.1:8000/cari2', false, $context);
         
             $data = json_decode($result, true);
